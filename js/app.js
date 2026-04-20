@@ -14,21 +14,31 @@ function setupNav() {
         <button class="nav-btn" data-cat="gadgets" onclick="changeC('gadgets', this)">Gadgets</button>
     `;
     document.getElementById('main-nav').innerHTML = navHTML;
-    document.getElementById('modal-nav').innerHTML = navHTML;
 }
 
 async function loadN() {
     try {
-        // LLAMADA DIRECTA A LA FUNCIÓN DE NETLIFY
         const res = await fetch('/.netlify/functions/server');
+        if (!res.ok) throw new Error('API Error');
         allN = await res.json();
         render();
         updateTicker();
         updateTechWidget();
     } catch (e) { 
         console.error("Error cargando noticias:", e); 
-        render();
+        render(); // Renderizar aunque esté vacío para mostrar menú
     }
+}
+
+function scrollToCat(c) {
+    cat = c;
+    render();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    // Actualizar botones del header
+    document.querySelectorAll('.nav-btn').forEach(b => {
+        b.classList.remove('active');
+        if(b.getAttribute('data-cat') === c) b.classList.add('active');
+    });
 }
 
 function updateTicker() {
@@ -63,9 +73,16 @@ function share(title, url) {
 function render() {
     const hDiv = document.getElementById('h');
     const fDiv = document.getElementById('f');
+    if (!hDiv || !fDiv) return;
+    
     let filtered = (cat === 'inicio') ? allN : allN.filter(n => n.category === cat);
     hDiv.innerHTML = ''; fDiv.innerHTML = '';
     
+    if (allN.length === 0) {
+        fDiv.innerHTML = `<div style="text-align:center; padding:100px; color:#888;">Procesando últimas noticias de Mafixti... Refresca en unos segundos.</div>`;
+        return;
+    }
+
     if (cat === 'inicio') {
         const top = allN[0];
         if(top) {
@@ -101,14 +118,7 @@ function cardHTML(n) {
 }
 
 function changeC(c, btn) {
-    cat = c;
-    document.querySelectorAll(`.nav-btn`).forEach(b => {
-        b.classList.remove('active');
-        if(b.getAttribute('data-cat') === c) b.classList.add('active');
-    });
-    if(document.getElementById('modal').style.display === 'block') closeM();
-    render();
-    window.scrollTo({top:0, behavior:'smooth'});
+    scrollToCat(c);
 }
 
 function show(id) {
@@ -133,10 +143,6 @@ function show(id) {
             </div>
             <div class="full-text-pro">
                 ${n.fullContent}
-                <div style="margin-top:100px; text-align:center; padding-top:50px; border-top:1px solid #eee;">
-                    <div class="logo" style="font-size:2.5rem; background:linear-gradient(90deg, var(--p), var(--c)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">MAFIXTI</div>
-                    <p style="color:#888; font-size:1rem; margin-top:10px;">Gracias por leer Mafixti. Tu portal de tecnología inteligente.</p>
-                </div>
             </div>
         </div>
     `;
@@ -149,11 +155,5 @@ function closeM() {
     document.getElementById('modal').style.display = 'none'; 
     document.body.style.overflow = 'auto'; 
 }
-
-window.onscroll = () => {
-    let s = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-    const p = document.getElementById("scroll-progress");
-    if(p) p.style.width = s + "%";
-};
 
 document.addEventListener('DOMContentLoaded', init);
