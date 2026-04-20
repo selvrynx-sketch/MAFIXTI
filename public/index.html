@@ -11,22 +11,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --p: #6200ea; --c: #00bcd4; --bg: #fff; --dark: #121212; --grey: #f4f4f4; }
-        /* FONDO ANIMADO INFALIBLE */
+        /* FONDO NEBULOSA ETÉREA */
         body { 
             font-family: 'Inter', sans-serif; margin: 0; 
-            background: linear-gradient(-45deg, #ffffff, #f0f7ff, #e1f5fe, #f3e5f5, #ffffff);
-            background-size: 400% 400%;
-            animation: aurora-gradient 15s ease infinite;
+            background: #fff;
             color: #111; overflow-x: hidden; position: relative; min-height: 100vh; 
         }
-        
-        @keyframes aurora-gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .aurora-bg { 
+            display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            z-index: -2; overflow: hidden; background: #fff;
         }
-
-        .aurora-bg { display: none; } /* Ya no necesitamos blobs */
+        .nebula {
+            position: absolute; width: 150%; height: 150%;
+            background: radial-gradient(circle at 30% 30%, rgba(0, 210, 255, 0.12) 0%, transparent 40%),
+                        radial-gradient(circle at 70% 20%, rgba(98, 0, 234, 0.08) 0%, transparent 40%),
+                        radial-gradient(circle at 50% 80%, rgba(255, 100, 200, 0.08) 0%, transparent 40%),
+                        radial-gradient(circle at 10% 70%, rgba(0, 188, 212, 0.1) 0%, transparent 40%);
+            filter: blur(100px);
+            animation: nebula-float 40s infinite linear;
+        }
+        @keyframes nebula-float {
+            0% { transform: translate(-10%, -10%) rotate(0deg) scale(1); }
+            50% { transform: translate(5%, 5%) rotate(180deg) scale(1.1); }
+            100% { transform: translate(-10%, -10%) rotate(360deg) scale(1); }
+        }
 
         /* MODAL GLASSMORPISM */
         #modal { 
@@ -95,11 +103,7 @@
     </style>
 </head>
 <body>
-    <div class="aurora-bg">
-        <div class="aurora-blob"></div>
-        <div class="aurora-blob blob-2"></div>
-        <div class="aurora-blob blob-3"></div>
-    </div>
+    <div class="aurora-bg"><div class="nebula"></div></div>
     <div class="live-tag"><div class="live-dot"></div>EN VIVO</div>
     <div class="top-bar">
         <div class="ticker-top"><div class="ticker" id="ticker-content">CARGANDO ÚLTIMAS NOTICIAS...</div></div>
