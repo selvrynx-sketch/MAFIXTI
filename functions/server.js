@@ -69,6 +69,12 @@ router.get('/news', async (req, res) => {
     res.json(results.flat().sort((a,b) => new Date(b.date) - new Date(a.date)));
 });
 
+// RESPALDO PARA RUTA DIRECTA
+router.get('/', async (req, res) => {
+    res.redirect('/.netlify/functions/server/news');
+});
+
 app.use('/.netlify/functions/server', router);
+app.use('/api', router); // También respondemos en /api para compatibilidad
 
 module.exports.handler = serverless(app);
