@@ -19,15 +19,14 @@ function setupNav() {
 
 async function loadN() {
     try {
-        // RUTA DINÁMICA: Si falla la local, intenta la de Netlify
-        const res = await fetch('/api/news').catch(() => fetch('/.netlify/functions/server/news'));
+        // LLAMADA DIRECTA A LA FUNCIÓN DE NETLIFY
+        const res = await fetch('/.netlify/functions/server');
         allN = await res.json();
         render();
         updateTicker();
         updateTechWidget();
     } catch (e) { 
         console.error("Error cargando noticias:", e); 
-        // Fallback para que al menos se vea el menú
         render();
     }
 }

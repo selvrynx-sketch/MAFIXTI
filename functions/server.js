@@ -1,10 +1,6 @@
-const express = require('express');
-const serverless = require('serverless-http');
 const Parser = require('rss-parser');
-const axios = require('axios');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const app = express();
 const parser = new Parser({
     timeout: 10000,
     customFields: {
@@ -42,12 +38,11 @@ async function fetchNews(cat, url) {
         const feed = await parser.parseURL(url);
         return feed.items.slice(0, 15).map(i => {
             const auth = AUTHORS[Math.floor(Math.random() * AUTHORS.length)];
-            const title = i.title.split(' - ')[0].replace(/Xataka|Genbeta|VidaExtra|Investing/gi, "Mafixti");
             return {
                 id: Math.random().toString(36).substr(2, 9),
-                title: title,
+                title: i.title.split(' - ')[0].replace(/Xataka|Genbeta|VidaExtra|Investing/gi, "Mafixti"),
                 image: extractRealImage(i),
-                aiIntro: "Análisis exclusivo de Mafixti AI.",
+                aiIntro: "Analizado por Mafixti AI.",
                 snippet: i.contentSnippet ? i.contentSnippet.substring(0, 150) + "..." : "Resumen de Mafixti.",
                 fullContent: cleanMafixtiTitanium(i.contentEncoded || i.content || i.description || "", auth),
                 date: i.pubDate || new Date(),
@@ -58,23 +53,21 @@ async function fetchNews(cat, url) {
     } catch (e) { return []; }
 }
 
-const router = express.Router();
-router.get('/news', async (req, res) => {
-    const results = await Promise.all([
-        fetchNews('inicio', 'https://www.xataka.com.mx/index.xml'),
-        fetchNews('tecnologia', 'https://www.xataka.com/index.xml'),
-        fetchNews('gaming', 'https://www.vidaextra.com/index.xml'),
-        fetchNews('gadgets', 'https://www.xatakamovil.com/index.xml')
-    ]);
-    res.json(results.flat().sort((a,b) => new Date(b.date) - new Date(a.date)));
-});
-
-// RESPALDO PARA RUTA DIRECTA
-router.get('/', async (req, res) => {
-    res.redirect('/.netlify/functions/server/news');
-});
-
-app.use('/.netlify/functions/server', router);
-app.use('/api', router); // También respondemos en /api para compatibilidad
-
-module.exports.handler = serverless(app);
+exports.handler = async (event, context) => {
+    try {
+        const results = await Promise.all([
+            fetchNews('inicio', 'https://www.xataka.com.mx/index.xml'),
+            fetchNews('tecnologia', 'https://www.xataka.com/index.xml'),
+            fetchNews('gaming', 'https://www.vidaextra.com/index.xml'),
+            fetchNews('gadgets', 'https://www.xatakamovil.com/index.xml')
+        ]);
+        
+        return {
+            statusCode: 200,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(results.flat().sort((a,b) => new Date(b.date) - new Date(a.date)))
+        };
+    } catch (e) {
+        return { statusCode: 500, body: e.message };
+    }
+};
