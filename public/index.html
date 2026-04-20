@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mafixti | El Futuro de la Tecnología Hoy</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/article.css">
+    <link rel="stylesheet" href="/css/dynamic.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9369374579219505" crossorigin="anonymous"></script>
+    <style>
+        :root { --p: #6200ea; --c: #00bcd4; --bg: #fff; --dark: #121212; --grey: #f4f4f4; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: #fff; color: #111; overflow-x: hidden; position: relative; }
+        
+        /* Indicador EN VIVO - Mini y Ajustado */
+        .live-tag {
+            position: fixed;
+            top: 60px;
+            right: 30px;
+            background: #ff0000;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.6rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            z-index: 13000;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 5px 15px rgba(255,0,0,0.3);
+        }
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            border-radius: 50%;
+            animation: pulse-live 1s infinite;
+        }
+
+        .top-bar { 
+            background: #f0f2f5; 
+            padding: 10px 0; 
+            color: #111; 
+            font-size: 0.8rem; 
+            border-bottom: 1px solid #ddd; 
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            z-index: 11000;
+        }
+        .ticker-top { flex: 1; overflow: hidden; white-space: nowrap; }
+        .ticker { display: inline-block; animation: scroll-ticker 180s linear infinite; font-weight: 700; color: #333; }
+        
+        .main-header { background: var(--dark); padding: 60px 0 40px; text-align: center; overflow: hidden; }
+        .logo { 
+            font-family: 'Orbitron'; 
+            font-size: 5.5rem; 
+            background: linear-gradient(
+                120deg, 
+                #00d2ff, 
+                #3a7bd5, 
+                #00d2ff, 
+                #3a7bd5, 
+                #00d2ff
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            text-decoration: none; 
+            font-weight: 900; 
+            letter-spacing: -4px; 
+            display: block; 
+            line-height: 1; 
+            animation: tornasol 5s linear infinite;
+            filter: drop-shadow(0 10px 20px rgba(0,210,255,0.2));
+        }
+
+        @keyframes tornasol {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .slogan { color: #888; font-size: 0.9rem; letter-spacing: 5px; text-transform: uppercase; margin-top: 15px; font-weight: 400; opacity: 0.8; }
+        .nav-container { background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; gap: 40px; padding: 20px 0; }
+        .nav-btn { background: none; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 0.9rem; color: #333; transition: 0.3s; }
+        .nav-btn.active { color: var(--p); border-bottom: 3px solid var(--p); padding-bottom: 5px; }
+        .ticker-wrap { background: #f8f9fa; border-bottom: 1px solid #eee; overflow: hidden; white-space: nowrap; padding: 15px 0; }
+        .ticker { display: inline-block; animation: scroll-ticker 180s linear infinite; font-weight: bold; font-size: 0.85rem; color: #111; }
+        @keyframes scroll-ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .ticker-item { padding: 0 50px; border-right: 1px solid #ddd; }
+        .wrapper { max-width: 1260px; margin: 40px auto; display: grid; grid-template-columns: 1fr 360px; gap: 50px; padding: 0 20px; }
+        .hero { position: relative; height: 600px; background: #000; border-radius: 16px; overflow: hidden; cursor: pointer; margin-bottom: 60px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
+        .hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: 0.8s; }
+        .hero:hover img { transform: scale(1.05); }
+        .hero-info { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.98)); padding: 80px; color: #fff; }
+        .hero-info h1 { font-size: 4rem; margin: 0 0 25px 0; line-height: 1; font-weight: 900; letter-spacing: -2px; }
+        .item { display: grid; grid-template-columns: 340px 1fr; gap: 40px; margin-bottom: 70px; cursor: pointer; }
+        .item img { width: 100%; height: 230px; object-fit: cover; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .item h2 { margin: 0 0 15px 0; font-size: 2.2rem; line-height: 1.1; font-weight: 800; color: #000; }
+        .widget { background: #fff; border: 1px solid #eee; border-radius: 16px; margin-bottom: 40px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .w-title { background: #f8f9fa; padding: 18px 25px; border-bottom: 1px solid #eee; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; color: #333; letter-spacing: 1.5px; }
+        .social-share { display: flex; gap: 15px; margin-top: 25px; }
+        .s-btn { width: 40px; height: 40px; border-radius: 50%; border: none; background: #f0f2f5; color: #444; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+        footer { background: var(--dark); color: #fff; padding: 120px 40px; margin-top: 120px; }
+        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px; }
+        .footer-col h4 { color: var(--c); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 35px; letter-spacing: 2px; border-left: 4px solid var(--p); padding-left: 15px; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col ul li { margin-bottom: 18px; font-size: 0.95rem; color: #999; cursor: pointer; transition: 0.3s; }
+        .footer-col ul li:hover { color: #fff; padding-left: 10px; }
+        .footer-bottom { max-width: 1200px; margin: 80px auto 0; border-top: 1px solid #333; padding-top: 60px; display: flex; justify-content: space-between; align-items: center; color: #666; }
+        .social-icons { display: flex; gap: 30px; font-size: 1.8rem; }
+        .social-icons i { cursor: pointer; transition: 0.3s; }
+        .social-icons i:hover { transform: translateY(-5px); color: var(--c); }
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 11000; overflow-y: auto; }
+        .modal-header { border-bottom: 1px solid #eee; padding: 25px; display: flex; justify-content: center; background: #fff; position: sticky; top: 0; z-index: 100; }
+    </style>
+</head>
+<body>
+    <div id="scroll-progress"></div>
+    <div class="live-tag"><div class="live-dot"></div>EN VIVO</div>
+    <div class="top-bar">
+        <div class="ticker-top">
+            <div class="ticker" id="ticker-content"></div>
+        </div>
+    </div>
+    <div class="main-header">
+        <a href="#" class="logo" onclick="location.reload()">MAFIXTI</a>
+        <div class="slogan">Inteligencia Editorial • Visión Tecnológica</div>
+    </div>
+    <div class="nav-container">
+        <nav id="main-nav"></nav>
+    </div>
+    <!-- Marquesina vieja eliminada de aquí -->
+    <div class="wrapper">
+        <main><div id="h"></div><div id="f"></div></main>
+        <aside>
+            <div class="widget">
+                <div class="w-title">Lanzamientos Tech</div>
+                <div id="tech-launches" style="padding:20px;"></div>
+            </div>
+            <div class="widget">
+                <div class="w-title">Mercados Real-Time</div>
+                <div style="height:350px; width:100%;">
+                    <!-- Widget Forzado v2 -->
+                    <iframe src="https://s.tradingview.com/embed-widget/market-overview/?locale=es#%7B%22colorTheme%22%3A%22light%22%2C%22dateRange%22%3A%221D%22%2C%22showChart%22%3Afalse%2C%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22largeChartUrl%22%3A%22%22%2C%22isTransparent%22%3Atrue%2C%22showSymbolLogo%22%3Atrue%2C%22tabs%22%3A%5B%7B%22title%22%3A%22Mafixti%20Live%22%2C%22symbols%22%3A%5B%7B%22s%22%3A%22FX_IDC%3AUSDMXN%22%2C%22d%22%3A%22Dolar%22%7D%2C%7B%22s%22%3A%22FX_IDC%3AEURMXN%22%2C%22d%22%3A%22Euro%22%7D%2C%7B%22s%22%3A%22BINANCE%3ABTCUSDT%22%2C%22d%22%3A%22Bitcoin%22%7D%5D%7D%5D%7D" style="width: 100%; height: 100%; border: none;"></iframe>
+                </div>
+            </div>
+        </aside>
+    </div>
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Categorías</h4>
+                <ul>
+                    <li onclick="scrollToCat('tecnologia')">Tecnología</li>
+                    <li onclick="scrollToCat('gaming')">Gaming</li>
+                    <li onclick="scrollToCat('gadgets')">Gadgets</li>
+                    <li onclick="scrollToCat('inicio')">Últimas Noticias</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Mafixti Pro</h4>
+                <ul>
+                    <li onclick="showInfo('sobre')">Sobre Mafixti</li>
+                    <li onclick="showInfo('contacto')">Contacto</li>
+                    <li onclick="showInfo('publicidad')">Publicidad</li>
+                    <li onclick="showInfo('redaccion')">Redacción Pro</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal IA</h4>
+                <ul>
+                    <li onclick="showInfo('privacidad')">Privacidad</li>
+                    <li onclick="showInfo('terminos')">Términos de Uso</li>
+                    <li onclick="showInfo('cookies')">Cookies</li>
+                    <li onclick="showInfo('legal')">Aviso Legal</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Social Media</h4>
+                <div class="social-icons">
+                    <i class="fab fa-facebook" onclick="window.open('https://facebook.com')"></i>
+                    <i class="fab fa-twitter" onclick="window.open('https://twitter.com')"></i>
+                    <i class="fab fa-instagram" onclick="window.open('https://instagram.com')"></i>
+                    <i class="fab fa-youtube" onclick="window.open('https://youtube.com')"></i>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Mafixti Global. Powered by Gemini AI.</div>
+            <div style="font-weight:700; color:var(--c); letter-spacing:1px;">RED NEURONAL DE NOTICIAS • PROCESANDO EL FUTURO EN TIEMPO REAL</div>
+        </div>
+    </footer>
+    <div id="modal">
+        <div class="modal-header">
+            <div id="modal-nav"></div>
+            <span style="position:absolute; right:35px; cursor:pointer; font-size:3.5rem; color:var(--p);" onclick="closeM()">✕</span>
+        </div>
+        <div class="m-content"><div id="m-body"></div></div>
+    </div>
+    <script src="/js/app.js"></script>
+    <script src="/js/info.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!-- Contenedor del Clima Nativo -->
+<div id="mafixti-weather" style="padding:20px; background:linear-gradient(135deg, #00bcd4, #6200ea); color:white; border-radius:12px; position:relative; overflow:hidden;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; position:relative; z-index:2;">
+        <div>
+            <div id="w-city" style="font-weight:bold; font-size:1.1rem; margin-bottom:5px;">Toluca, MX</div>
+            <div id="w-desc" style="font-size:0.8rem; opacity:0.9;">Cielo despejado</div>
+        </div>
+        <div id="w-icon-main" style="font-size:3rem;">☀️</div>
+    </div>
+    
+    <div style="margin:20px 0; position:relative; z-index:2;">
+        <span id="w-temp" style="font-size:3.5rem; font-weight:800;">21</span><span style="font-size:1.5rem; vertical-align:top; font-weight:bold;">°C</span>
+    </div>
+
+    <div id="w-hourly-box" style="display:flex; overflow-x:auto; gap:15px; padding-top:15px; border-top:1px solid rgba(255,255,255,0.2); position:relative; z-index:2;">
+        <!-- Se llena vía JS -->
+    </div>
+
+    <!-- Efecto decorativo de fondo -->
+    <div style="position:absolute; top:-20px; right:-20px; width:150px; height:150px; background:rgba(255,255,255,0.1); border-radius:50%; z-index:1;"></div>
+</div>

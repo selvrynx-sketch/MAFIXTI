@@ -1,0 +1,43 @@
+/* Widget Clima Interactivo */
+.weather-hourly-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 10px 0;
+    margin-top: 15px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+.weather-hourly-container::-webkit-scrollbar {
+    height: 4px;
+}
+
+.weather-hourly-container::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+}
+
+.hourly-item {
+    min-width: 60px;
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    padding: 10px 5px;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.hourly-time {
+    font-size: 0.7rem;
+    opacity: 0.8;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.hourly-temp {
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: block;
+    margin-top: 5px;
+}

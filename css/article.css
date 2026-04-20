@@ -1,0 +1,96 @@
+/* Diseño Creativo de Artículos Mafixti */
+#modal {
+    background: #0a0a0c;
+}
+
+.article-hero {
+    height: 75vh;
+    position: relative;
+    background: #000;
+}
+
+.article-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}
+
+.article-header-overlay {
+    position: absolute;
+    bottom: 5%;
+    left: 0;
+    right: 0;
+    padding: 0 40px;
+    text-align: center;
+}
+
+.article-title {
+    font-size: 4.8rem;
+    font-weight: 900;
+    line-height: 1;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: -3px;
+    margin-bottom: 20px;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.article-body-container {
+    background: #fff;
+    max-width: 950px;
+    margin: -100px auto 100px;
+    padding: 80px 60px;
+    border-radius: 24px;
+    position: relative;
+    z-index: 20;
+    box-shadow: 0 50px 100px rgba(0,0,0,0.4);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Marco Creativo */
+.article-body-container::before {
+    content: '';
+    position: absolute;
+    top: 20px; left: 20px; right: 20px; bottom: 20px;
+    border: 1px solid #eee;
+    pointer-events: none;
+    border-radius: 12px;
+}
+
+.ai-box-premium {
+    background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+    padding: 45px;
+    border-radius: 16px;
+    border-left: 10px solid var(--p);
+    font-size: 1.6rem;
+    line-height: 1.6;
+    font-weight: 600;
+    color: #1d3d75;
+    margin-bottom: 60px;
+    position: relative;
+    box-shadow: 10px 10px 30px rgba(0,0,0,0.03);
+}
+
+.full-text-pro {
+    font-size: 1.4rem;
+    line-height: 2.2;
+    color: #222;
+}
+
+.full-text-pro p { margin-bottom: 40px; }
+
+.full-text-pro img {
+    width: 100% !important;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    margin: 50px 0;
+}
+
+.full-text-pro a {
+    color: var(--p);
+    text-decoration: none;
+    border-bottom: 2px solid var(--c);
+    font-weight: bold;
+}
