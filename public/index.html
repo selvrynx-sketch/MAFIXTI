@@ -13,9 +13,35 @@
         :root { --p: #6200ea; --c: #00bcd4; --bg: #fff; --dark: #121212; --grey: #f4f4f4; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: #fff; color: #111; overflow-x: hidden; position: relative; min-height: 100vh; }
         
-        .aurora-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(125deg, #fff 0%, #f0f7ff 50%, #fff 100%); z-index: -1; opacity: 0.8; }
-        .aurora-blob { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,188,212,0.15) 0%, rgba(98,0,234,0.05) 100%); filter: blur(80px); border-radius: 50%; animation: move 20s infinite alternate; }
-        @keyframes move { from { transform: translate(-10%, -10%); } to { transform: translate(20%, 20%); } }
+        /* FONDO ANIMADO ULTRA-VIVID */
+        .aurora-bg { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: radial-gradient(circle at 0% 0%, #00bcd433 0%, transparent 50%),
+                        radial-gradient(circle at 100% 100%, #6200ea22 0%, transparent 50%),
+                        #fff;
+            z-index: -1; 
+        }
+        .aurora-blob { 
+            position: absolute; width: 800px; height: 800px; 
+            background: radial-gradient(circle, rgba(0,210,255,0.2) 0%, rgba(98,0,234,0.1) 100%); 
+            filter: blur(100px); border-radius: 50%; animation: aurora-flow 25s infinite alternate; 
+        }
+        .blob-2 { top: -200px; left: -200px; background: rgba(0,188,212,0.15); animation-delay: -5s; }
+        .blob-3 { bottom: -200px; right: -200px; background: rgba(98,0,234,0.1); animation-delay: -10s; }
+        
+        @keyframes aurora-flow { 
+            0% { transform: translate(-20%, -20%) scale(1); } 
+            50% { transform: translate(30%, 10%) scale(1.2); }
+            100% { transform: translate(-10%, 40%) scale(0.9); } 
+        }
+
+        /* MODAL GLASSMORPISM */
+        #modal { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(255, 255, 255, 0.85); /* Transparencia para ver el fondo */
+            backdrop-filter: blur(20px); 
+            z-index: 20000; display: none; overflow-y: auto; 
+        }
 
         .top-bar { background: #f0f2f5; padding: 10px 0; color: #111; font-size: 0.8rem; border-bottom: 1px solid #ddd; display: flex; align-items: center; overflow: hidden; z-index: 11000; position: relative; }
         .ticker-top { flex: 1; overflow: hidden; white-space: nowrap; }
@@ -60,7 +86,6 @@
         .footer-col li:hover { color: #fff; }
         .footer-bottom { border-top: 1px solid #333; margin-top: 80px; padding-top: 40px; text-align: center; color: #555; font-size: 0.9rem; }
 
-        #modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 20000; display: none; overflow-y: auto; }
         .close-m { position: fixed; top: 30px; right: 30px; font-size: 2.5rem; cursor: pointer; z-index: 21000; color: #000; }
         .article-hero { height: 70vh; position: relative; }
         .article-hero img { width: 100%; height: 100%; object-fit: cover; }
@@ -77,7 +102,11 @@
     </style>
 </head>
 <body>
-    <div class="aurora-bg"><div class="aurora-blob"></div></div>
+    <div class="aurora-bg">
+        <div class="aurora-blob"></div>
+        <div class="aurora-blob blob-2"></div>
+        <div class="aurora-blob blob-3"></div>
+    </div>
     <div class="live-tag"><div class="live-dot"></div>EN VIVO</div>
     <div class="top-bar">
         <div class="ticker-top"><div class="ticker" id="ticker-content">CARGANDO ÚLTIMAS NOTICIAS...</div></div>
@@ -195,6 +224,31 @@
             `).join('');
         }
 
+        function shareHTML(title, id) {
+            const url = window.location.origin + '?id=' + id;
+            const t = encodeURIComponent(title);
+            const u = encodeURIComponent(url);
+            return `
+                <div class="social-share">
+                    <button class="s-btn" onclick="window.open('https://facebook.com/sharer/sharer.php?u=${u}', '_blank')" title="Facebook"><i class="fab fa-facebook-f"></i></button>
+                    <button class="s-btn" onclick="window.open('https://twitter.com/intent/tweet?text=${t}&url=${u}', '_blank')" title="X (Twitter)"><i class="fab fa-x-twitter"></i></button>
+                    <button class="s-btn" onclick="copyLink('${url}', this)" title="Copiar Enlace"><i class="fas fa-link"></i></button>
+                </div>
+            `;
+        }
+
+        function copyLink(url, btn) {
+            navigator.clipboard.writeText(url).then(() => {
+                const oldIcon = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i>';
+                btn.style.background = 'var(--c)';
+                setTimeout(() => {
+                    btn.innerHTML = oldIcon;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+
         function render() {
             const hDiv = document.getElementById('h');
             const fDiv = document.getElementById('f');
@@ -209,10 +263,16 @@
 
             if (cat === 'inicio') {
                 const top = allN[0];
-                hDiv.innerHTML = `<div class="hero" onclick="show('${top.id}')">
-                    <img src="${top.image}"><div class="hero-info">
-                    <div style="background:var(--p); padding:6px 15px; display:inline-block; font-size:0.75rem; font-weight:800; margin-bottom:20px;">DESTACADO</div>
-                    <h1>${top.title}</h1></div></div>`;
+                hDiv.innerHTML = `
+                    <div class="hero">
+                        <img src="${top.image}" onclick="show('${top.id}')">
+                        <div class="hero-info">
+                            <div style="background:var(--p); padding:6px 15px; display:inline-block; font-size:0.75rem; font-weight:800; margin-bottom:20px;">DESTACADO</div>
+                            <h1 onclick="show('${top.id}')">${top.title}</h1>
+                            ${shareHTML(top.title, top.id)}
+                        </div>
+                    </div>
+                `;
                 fDiv.innerHTML = allN.slice(1).map(n => cardHTML(n)).join('');
             } else {
                 fDiv.innerHTML = filtered.map(n => cardHTML(n)).join('');
@@ -220,10 +280,17 @@
         }
 
         function cardHTML(n) {
-            return `<div class="item">
-                <img src="${n.image}" onclick="show('${n.id}')">
-                <div><div style="font-size:0.8rem; color:#888; margin-bottom:12px; font-weight:bold;">POR ${n.author.toUpperCase()}</div>
-                <h2 onclick="show('${n.id}')">${n.title}</h2><p>${n.snippet}</p></div></div>`;
+            return `
+                <div class="item">
+                    <img src="${n.image}" onclick="show('${n.id}')">
+                    <div>
+                        <div style="font-size:0.8rem; color:#888; margin-bottom:12px; font-weight:bold;">POR ${n.author.toUpperCase()}</div>
+                        <h2 onclick="show('${n.id}')">${n.title}</h2>
+                        <p>${n.snippet}</p>
+                        ${shareHTML(n.title, n.id)}
+                    </div>
+                </div>
+            `;
         }
 
         function show(id) {
@@ -231,11 +298,23 @@
             if (!n) return;
             const m = document.getElementById('modal');
             document.getElementById('m-body').innerHTML = `
-                <div class="article-hero"><img src="${n.image}">
-                <div class="article-header-overlay"><div style="color:#666; font-weight:800;">MAFIXTI EDITORIAL • POR ${n.author.toUpperCase()}</div>
-                <h1 class="article-title">${n.title}</h1></div></div>
-                <div class="article-body-container">${n.fullContent}</div>`;
-            m.style.display = 'block'; document.body.style.overflow = 'hidden'; m.scrollTop = 0;
+                <div class="article-hero">
+                    <img src="${n.image}">
+                    <div class="article-header-overlay">
+                        <div style="color:#666; font-weight:800; text-transform:uppercase;">MAFIXTI EDITORIAL • POR ${n.author.toUpperCase()}</div>
+                        <h1 class="article-title">${n.title}</h1>
+                        <div style="display:flex; justify-content:center; gap:15px; margin-top:30px;">
+                            ${shareHTML(n.title, n.id)}
+                        </div>
+                    </div>
+                </div>
+                <div class="article-body-container">
+                    ${n.fullContent}
+                </div>
+            `;
+            m.style.display = 'block'; 
+            document.body.style.overflow = 'hidden'; 
+            m.scrollTop = 0;
         }
 
         function closeM() { document.getElementById('modal').style.display = 'none'; document.body.style.overflow = 'auto'; }
