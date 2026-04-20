@@ -266,7 +266,7 @@
                         <div class="hero-info">
                             <div style="background:var(--p); padding:6px 15px; display:inline-block; font-size:0.75rem; font-weight:800; margin-bottom:20px;">DESTACADO</div>
                             <h1 onclick="show('${top.id}')">${top.title}</h1>
-                            ${shareHTML(top.title, top.id)}
+                            <div style="margin-top:15px;">${shareHTML(top.title, top.id)}</div>
                         </div>
                     </div>
                 `;
@@ -284,7 +284,7 @@
                         <div style="font-size:0.8rem; color:#888; margin-bottom:12px; font-weight:bold;">POR ${n.author.toUpperCase()}</div>
                         <h2 onclick="show('${n.id}')">${n.title}</h2>
                         <p>${n.snippet}</p>
-                        ${shareHTML(n.title, n.id)}
+                        <div style="margin-top:10px;">${shareHTML(n.title, n.id)}</div>
                     </div>
                 </div>
             `;
