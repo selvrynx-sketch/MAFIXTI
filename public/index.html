@@ -13,20 +13,10 @@
         :root { --p: #6200ea; --c: #00bcd4; --bg: #fff; --dark: #121212; --grey: #f4f4f4; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: #fff; color: #111; overflow-x: hidden; position: relative; min-height: 100vh; }
         
-        /* FONDO ANIMADO INTEGRADO */
-        .aurora-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(125deg, #fff 0%, #f0f7ff 50%, #fff 100%);
-            z-index: -1; opacity: 0.8;
-        }
-        .aurora-blob {
-            position: absolute; width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(0,188,212,0.15) 0%, rgba(98,0,234,0.05) 100%);
-            filter: blur(80px); border-radius: 50%; animation: move 20s infinite alternate;
-        }
+        .aurora-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(125deg, #fff 0%, #f0f7ff 50%, #fff 100%); z-index: -1; opacity: 0.8; }
+        .aurora-blob { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,188,212,0.15) 0%, rgba(98,0,234,0.05) 100%); filter: blur(80px); border-radius: 50%; animation: move 20s infinite alternate; }
         @keyframes move { from { transform: translate(-10%, -10%); } to { transform: translate(20%, 20%); } }
 
-        /* HEADER & LOGO TORNASOL */
         .top-bar { background: #f0f2f5; padding: 10px 0; color: #111; font-size: 0.8rem; border-bottom: 1px solid #ddd; display: flex; align-items: center; overflow: hidden; z-index: 11000; position: relative; }
         .ticker-top { flex: 1; overflow: hidden; white-space: nowrap; }
         .ticker { display: inline-block; animation: scroll-ticker 180s linear infinite; font-weight: 700; color: #333; }
@@ -42,13 +32,11 @@
         @keyframes tornasol { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         .slogan { color: #888; font-size: 0.9rem; letter-spacing: 5px; text-transform: uppercase; margin-top: 15px; }
 
-        /* NAVIGATION */
         .nav-container { background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 10000; }
         nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; gap: 40px; padding: 20px 0; }
-        .nav-btn { background: none; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 0.9rem; color: #333; transition: 0.3s; }
+        .nav-btn { background: none; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 0.9rem; color: #333; transition: 0.3s; padding: 10px 0; }
         .nav-btn.active { color: var(--p); border-bottom: 2px solid var(--p); }
 
-        /* CONTENT LAYOUT */
         .wrapper { max-width: 1400px; margin: 40px auto; display: grid; grid-template-columns: 1fr 350px; gap: 40px; padding: 0 20px; }
         .hero { position: relative; height: 550px; border-radius: 24px; overflow: hidden; cursor: pointer; margin-bottom: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         .hero img { width: 100%; height: 100%; object-fit: cover; }
@@ -59,12 +47,11 @@
         .item:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
         .item img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; cursor: pointer; }
         .item h2 { font-size: 1.6rem; margin: 10px 0; line-height: 1.3; cursor: pointer; color: #111; }
+        .item p { color: #555; line-height: 1.6; }
 
-        /* SIDEBAR */
         .widget-pro { background: #fff; padding: 25px; border-radius: 24px; margin-bottom: 30px; border: 1px solid #eee; }
         .widget-pro h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 20px; }
 
-        /* FOOTER */
         footer { background: var(--dark); color: #fff; padding: 100px 0 40px; margin-top: 100px; }
         .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; padding: 0 20px; }
         .footer-col h4 { color: var(--c); text-transform: uppercase; margin-bottom: 30px; letter-spacing: 2px; }
@@ -73,18 +60,20 @@
         .footer-col li:hover { color: #fff; }
         .footer-bottom { border-top: 1px solid #333; margin-top: 80px; padding-top: 40px; text-align: center; color: #555; font-size: 0.9rem; }
 
-        /* MODAL */
         #modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 20000; display: none; overflow-y: auto; }
         .close-m { position: fixed; top: 30px; right: 30px; font-size: 2.5rem; cursor: pointer; z-index: 21000; color: #000; }
         .article-hero { height: 70vh; position: relative; }
         .article-hero img { width: 100%; height: 100%; object-fit: cover; }
         .article-header-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 100px 20px; background: linear-gradient(to top, #fff, transparent); text-align: center; }
-        .article-title { font-size: 4rem; max-width: 1000px; margin: 0 auto; line-height: 1.1; font-weight: 900; }
+        .article-title { font-size: 3.5rem; max-width: 1000px; margin: 0 auto; line-height: 1.1; font-weight: 900; }
         .article-body-container { max-width: 850px; margin: 0 auto; padding: 60px 20px; color: #333; font-size: 1.25rem; line-height: 1.8; }
         
         .live-tag { position: fixed; top: 60px; right: 30px; background: #ff0000; color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.6rem; font-weight: 900; z-index: 13000; display: flex; align-items: center; gap: 5px; }
         .live-dot { width: 6px; height: 6px; background: #fff; border-radius: 50%; animation: pulse-live 1s infinite; }
-        @keyframes pulse-live { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        
+        /* Social share */
+        .social-share { display: flex; gap: 10px; margin-top: 15px; }
+        .s-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -144,6 +133,113 @@
 
     <div id="modal"><div class="close-m" onclick="closeM()">&times;</div><div id="m-body"></div></div>
 
-    <script src="/js/app.js"></script>
+    <script>
+        let allN = [];
+        let cat = 'inicio';
+
+        async function init() {
+            setupNav();
+            await loadN();
+        }
+
+        function setupNav() {
+            const navHTML = `
+                <button class="nav-btn active" data-cat="inicio" onclick="changeC('inicio', this)">Inicio</button>
+                <button class="nav-btn" data-cat="tecnologia" onclick="changeC('tecnologia', this)">Tecnología</button>
+                <button class="nav-btn" data-cat="gaming" onclick="changeC('gaming', this)">Gaming</button>
+                <button class="nav-btn" data-cat="gadgets" onclick="changeC('gadgets', this)">Gadgets</button>
+            `;
+            document.getElementById('main-nav').innerHTML = navHTML;
+        }
+
+        async function loadN() {
+            try {
+                const res = await fetch('/.netlify/functions/server');
+                allN = await res.json();
+                render();
+                updateTicker();
+                updateTechWidget();
+            } catch (e) { 
+                console.error("Error:", e); 
+                render();
+            }
+        }
+
+        function scrollToCat(c) {
+            cat = c;
+            render();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            document.querySelectorAll('.nav-btn').forEach(b => {
+                b.classList.remove('active');
+                if(b.getAttribute('data-cat') === c) b.classList.add('active');
+            });
+        }
+
+        function changeC(c, btn) { scrollToCat(c); }
+
+        function updateTicker() {
+            const ticker = document.getElementById('ticker-content');
+            if (!ticker || allN.length === 0) return;
+            const items = allN.slice(0, 15).map(n => `<span style="margin-right:50px;">[ MAFIXTI ] ${n.title}</span>`).join('');
+            ticker.innerHTML = items + items;
+        }
+
+        function updateTechWidget() {
+            const w = document.getElementById('tech-launches');
+            if(!w || allN.length === 0) return;
+            w.innerHTML = allN.slice(5, 10).map(l => `
+                <div style="margin-bottom:15px; border-left:3px solid var(--c); padding-left:12px; cursor:pointer;" onclick="show('${l.id}')">
+                    <div style="font-size:0.7rem; color:var(--p); font-weight:800; text-transform:uppercase;">Trend</div>
+                    <div style="font-size:0.85rem; font-weight:600; line-height:1.3; margin-top:3px;">${l.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function render() {
+            const hDiv = document.getElementById('h');
+            const fDiv = document.getElementById('f');
+            if (!hDiv || !fDiv) return;
+            let filtered = (cat === 'inicio') ? allN : allN.filter(n => n.category === cat);
+            hDiv.innerHTML = ''; fDiv.innerHTML = '';
+            
+            if (allN.length === 0) {
+                fDiv.innerHTML = `<div style="text-align:center; padding:100px; color:#888;">Cargando motor Mafixti...</div>`;
+                return;
+            }
+
+            if (cat === 'inicio') {
+                const top = allN[0];
+                hDiv.innerHTML = `<div class="hero" onclick="show('${top.id}')">
+                    <img src="${top.image}"><div class="hero-info">
+                    <div style="background:var(--p); padding:6px 15px; display:inline-block; font-size:0.75rem; font-weight:800; margin-bottom:20px;">DESTACADO</div>
+                    <h1>${top.title}</h1></div></div>`;
+                fDiv.innerHTML = allN.slice(1).map(n => cardHTML(n)).join('');
+            } else {
+                fDiv.innerHTML = filtered.map(n => cardHTML(n)).join('');
+            }
+        }
+
+        function cardHTML(n) {
+            return `<div class="item">
+                <img src="${n.image}" onclick="show('${n.id}')">
+                <div><div style="font-size:0.8rem; color:#888; margin-bottom:12px; font-weight:bold;">POR ${n.author.toUpperCase()}</div>
+                <h2 onclick="show('${n.id}')">${n.title}</h2><p>${n.snippet}</p></div></div>`;
+        }
+
+        function show(id) {
+            const n = allN.find(x => x.id === id);
+            if (!n) return;
+            const m = document.getElementById('modal');
+            document.getElementById('m-body').innerHTML = `
+                <div class="article-hero"><img src="${n.image}">
+                <div class="article-header-overlay"><div style="color:#666; font-weight:800;">MAFIXTI EDITORIAL • POR ${n.author.toUpperCase()}</div>
+                <h1 class="article-title">${n.title}</h1></div></div>
+                <div class="article-body-container">${n.fullContent}</div>`;
+            m.style.display = 'block'; document.body.style.overflow = 'hidden'; m.scrollTop = 0;
+        }
+
+        function closeM() { document.getElementById('modal').style.display = 'none'; document.body.style.overflow = 'auto'; }
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
