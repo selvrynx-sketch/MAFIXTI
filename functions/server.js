@@ -1,5 +1,4 @@
 const Parser = require('rss-parser');
-const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const parser = new Parser({
     timeout: 10000,
@@ -8,7 +7,6 @@ const parser = new Parser({
     }
 });
 
-const genAI = new GoogleGenerativeAI("AIzaSyDgu8rraIwNqNGestWMEDYJk3iMPmSaWzo");
 const AUTHORS = ["Alex Tech", "Sofia Digital", "Marcos Bit", "Elena Cyber", "Dani Cripto", "Victor Gaming"];
 
 function extractRealImage(item) {
@@ -54,6 +52,14 @@ async function fetchNews(cat, url) {
 }
 
 exports.handler = async (event, context) => {
+    // SOPORTE PARA CORS (Permisos de Netlify)
+    const headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "GET, POST, OPTION",
+        "Content-Type": "application/json"
+    };
+
     try {
         const results = await Promise.all([
             fetchNews('inicio', 'https://www.xataka.com.mx/index.xml'),
@@ -64,10 +70,14 @@ exports.handler = async (event, context) => {
         
         return {
             statusCode: 200,
-            headers: { "Content-Type": "application/json" },
+            headers: headers,
             body: JSON.stringify(results.flat().sort((a,b) => new Date(b.date) - new Date(a.date)))
         };
     } catch (e) {
-        return { statusCode: 500, body: e.message };
+        return { 
+            statusCode: 500, 
+            headers: headers,
+            body: JSON.stringify({ error: e.message }) 
+        };
     }
 };
