@@ -97,9 +97,20 @@
         .live-tag { position: fixed; top: 60px; right: 30px; background: #ff0000; color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.6rem; font-weight: 900; z-index: 13000; display: flex; align-items: center; gap: 5px; }
         .live-dot { width: 6px; height: 6px; background: #fff; border-radius: 50%; animation: pulse-live 1s infinite; }
         
-        /* Social share */
+        /* Social share - Estilo Unificado */
         .social-share { display: flex; gap: 10px; margin-top: 15px; }
-        .s-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .s-btn { 
+            background: rgba(0,0,0,0.1); 
+            border: 1px solid rgba(0,0,0,0.1); 
+            color: #333; 
+            width: 38px; height: 38px; 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; transition: 0.3s;
+            font-size: 0.9rem;
+        }
+        .s-btn:hover { background: var(--p); color: #fff; border-color: var(--p); transform: scale(1.1); }
+        .hero .s-btn { background: rgba(255,255,255,0.2); color: #fff; border-color: rgba(255,255,255,0.3); }
     </style>
 </head>
 <body>
@@ -228,7 +239,7 @@
             return `
                 <div class="social-share">
                     <button class="s-btn" onclick="window.open('https://facebook.com/sharer/sharer.php?u=${u}', '_blank')" title="Facebook"><i class="fab fa-facebook-f"></i></button>
-                    <button class="s-btn" onclick="window.open('https://twitter.com/intent/tweet?text=${t}&url=${u}', '_blank')" title="X (Twitter)"><i class="fab fa-x-twitter"></i></button>
+                    <button class="s-btn" onclick="window.open('https://twitter.com/intent/tweet?text=${t}&url=${u}', '_blank')" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></button>
                     <button class="s-btn" onclick="copyLink('${url}', this)" title="Copiar Enlace"><i class="fas fa-link"></i></button>
                 </div>
             `;
