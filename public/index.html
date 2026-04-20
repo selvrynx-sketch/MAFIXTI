@@ -297,11 +297,23 @@
             const n = allN.find(x => x.id === id);
             if (!n) return;
             const m = document.getElementById('modal');
+            
+            // MENÚ DE NAVEGACIÓN RÁPIDA DENTRO DEL ARTÍCULO
+            const navInterno = `
+                <div style="background:#fff; border-bottom:1px solid #eee; padding:15px; position:sticky; top:0; z-index:100; display:flex; justify-content:center; gap:25px; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+                    <button class="nav-btn" onclick="closeM(); changeC('inicio')">Inicio</button>
+                    <button class="nav-btn" onclick="closeM(); changeC('tecnologia')">Tecnología</button>
+                    <button class="nav-btn" onclick="closeM(); changeC('gaming')">Gaming</button>
+                    <button class="nav-btn" onclick="closeM(); changeC('gadgets')">Gadgets</button>
+                </div>
+            `;
+
             document.getElementById('m-body').innerHTML = `
+                ${navInterno}
                 <div class="article-hero">
                     <img src="${n.image}">
                     <div class="article-header-overlay">
-                        <div style="color:#666; font-weight:800; text-transform:uppercase;">MAFIXTI EDITORIAL • POR ${n.author.toUpperCase()}</div>
+                        <div style="color:#666; font-weight:800; text-transform:uppercase; letter-spacing:1px;">MAFIXTI EDITORIAL • POR ${n.author.toUpperCase()}</div>
                         <h1 class="article-title">${n.title}</h1>
                         <div style="display:flex; justify-content:center; gap:15px; margin-top:30px;">
                             ${shareHTML(n.title, n.id)}
@@ -310,6 +322,12 @@
                 </div>
                 <div class="article-body-container">
                     ${n.fullContent}
+                    <div style="margin-top:80px; padding:40px; border-top:1px solid #eee; text-align:center;">
+                        <p style="font-weight:800; color:#888; text-transform:uppercase; font-size:0.8rem; margin-bottom:20px;">Comparte esta primicia</p>
+                        <div style="display:flex; justify-content:center; gap:20px;">
+                            ${shareHTML(n.title, n.id)}
+                        </div>
+                    </div>
                 </div>
             `;
             m.style.display = 'block'; 
